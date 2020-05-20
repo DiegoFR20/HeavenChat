@@ -56,7 +56,6 @@
 				<a class="navbar-brand" href="/">Multiroom Chat</a>
 			</div>
 
-
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li>
@@ -73,10 +72,9 @@
 	<div class="container">
 		<div class="row conversa" id="conversa">
 			<div class="col-md-1"></div>
-			<div class="col-md-10" id="dialogos">
+			<div class="col-md-10 text-dark" id="dialogos">
 			</div>
 			<div class="col-md-1"></div>
-
 		</div>
 
 		<div class="row participantes" id="participantes" style="display:none">
@@ -84,7 +82,6 @@
 			<div class="col-md-10" id="pessoas">
 			</div>
 			<div class="col-md-1"></div>
-
 		</div>
 	</div>
 
@@ -97,8 +94,10 @@
 						<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
 						<input type="hidden" value="0" id="apelido_atualizado_nos_clientes">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="enviar_mensagem"
-								style="outline: none">></button>
+							<button class="btn btn-info text-light" type="button" id="enviar_mensagem"
+								style="outline: none;">
+								>
+							</button>
 						</span>
 					</div>
 				</div>
@@ -111,17 +110,16 @@
 		crossorigin="anonymous"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-
-	</script>
-	<script>
 		var socket = io('http://192.168.0.2');
 
 		var mensagem = document.getElementById("mensagem");
 
-		mensagem.addEventListener("keyup", function (event) {
+		$('#mensagem').keypress(function (event) {
 			if (event.keyCode === 13)
-				document.getElementById("enviar_mensagem").click()
+				$('#enviar_mensagem').click()
 		});
+
+		$('#mensagem').focus();
 
 		$('#enviar_mensagem').click(function () {
 			if ($('#mensagem').val() != '') {
