@@ -43,7 +43,6 @@
 
 <body>
 
-
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
@@ -98,7 +97,8 @@
 						<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
 						<input type="hidden" value="0" id="apelido_atualizado_nos_clientes">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="enviar_mensagem" style="outline: none">></button>
+							<button class="btn btn-default" type="button" id="enviar_mensagem"
+								style="outline: none">></button>
 						</span>
 					</div>
 				</div>
@@ -111,20 +111,31 @@
 		crossorigin="anonymous"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
+
+	</script>
+	<script>
 		var socket = io('http://192.168.0.2');
 
-		$('#enviar_mensagem').click(function () {
-			socket.emit(
-				'msgParaServidor',
-				{
-					apelido: $('#apelido').val(),
-					mensagem: $('#mensagem').val(),
-					apelido_atualizado_nos_clientes: $('#apelido_atualizado_nos_clientes').val()
-				}
-			);
+		var mensagem = document.getElementById("mensagem");
 
-			$('#mensagem').val("");
-			$('#apelido_atualizado_nos_clientes').val(1);
+		mensagem.addEventListener("keyup", function (event) {
+			if (event.keyCode === 13)
+				document.getElementById("enviar_mensagem").click()
+		});
+
+		$('#enviar_mensagem').click(function () {
+			if ($('#mensagem').val() != '') {
+				socket.emit(
+					'msgParaServidor',
+					{
+						apelido: $('#apelido').val(),
+						mensagem: $('#mensagem').val(),
+						apelido_atualizado_nos_clientes: $('#apelido_atualizado_nos_clientes').val()
+					}
+				);
+				$('#mensagem').val("");
+				$('#apelido_atualizado_nos_clientes').val(1);
+			}
 		});
 
 		socket.on('msgParaCliente', function (data) {
@@ -137,7 +148,7 @@
 
 			$('#dialogos').append(html);
 
-			windows.scrollTo(0, document.body.scrollHeight);
+			window.scrollTo(0, document.body.scrollHeight);
 		});
 
 		socket.on('participantesParaCliente', function (data) {
