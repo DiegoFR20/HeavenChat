@@ -43,7 +43,7 @@
 
 <body>
 
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<header class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1"
@@ -57,17 +57,21 @@
 			</div>
 
 			<div class="collapse navbar-collapse" id="navbar-collapse-1">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav ">
 					<li>
 						<a href="#" id="exibe_chat">Chat</a>
 					</li>
 					<li>
 						<a href="#" id="exibe_participantes">Participantes</a>
 					</li>
+					<li class="nav-item">
+						<a href="#" id="usuario"><%=dadosForm.apelido%> (Você)</a>
+					</li>
 				</ul>
 			</div>
+
 		</div>
-	</nav>
+	</header>
 
 	<div class="container">
 		<div class="row conversa" id="conversa">
@@ -88,7 +92,14 @@
 	<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 		<div class="container">
 			<div class="panel-body campo-mensagem">
-				<div class="col-md-12">
+				<div class="col-md-1">
+					<ul class="list-group">
+						<button type="button" class="btn btn-info text-light" style="outline:none" onclick="limparChat()">
+							Limpar chat
+						</button>
+					</ul>
+				</div>
+				<div class="col-md-11">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
 						<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
@@ -110,6 +121,10 @@
 		crossorigin="anonymous"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
+		function limparChat() {
+			location.reload();
+		}
+
 		var socket = io('http://localhost');
 
 		var mensagem = document.getElementById("mensagem");
