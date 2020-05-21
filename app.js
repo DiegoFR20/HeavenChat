@@ -11,25 +11,35 @@ app.set('io', io);
 io.on('connection', function (socket) {
     console.log('Usuário conectou');
 
-    socket.on('disconnect', function () {
-        console.log('Usuário desconectou');
-    });
-
     socket.on('msgParaServidor', function (data) {
+        socket.on('disconnect', function () {
+            socket.emit(
+                'msgParaCliente',
+                { apelido: data.apelido, mensagem: 'acabou de sair do chat' });
+
+            socket.broadcast.emit(
+                'msgParaCliente',
+                { apelido: data.apelido, mensagem: 'acabou de sair do chat' });
+
+            console.log('Usuário desconectou');
+        });
+
         socket.emit(
             'msgParaCliente',
             { apelido: data.apelido, mensagem: data.mensagem }
         );
+
         socket.broadcast.emit(
             'msgParaCliente',
             { apelido: data.apelido, mensagem: data.mensagem }
         );
-        
-        if(parseInt(data.apelido_atualizado_nos_clientes) == 0){
+
+        if (parseInt(data.apelido_atualizado_nos_clientes) == 0) {
             socket.emit(
                 'participantesParaCliente',
-                { apelido: data.apelido}
+                { apelido: data.apelido }
             );
+
             socket.broadcast.emit(
                 'participantesParaCliente',
                 { apelido: data.apelido }

@@ -1,4 +1,4 @@
-module.exports.iniciaChat = function(application, req, res){
+module.exports.iniciaChat = function (application, req, res) {
 
     var dadosForm = req.body;
 
@@ -7,14 +7,16 @@ module.exports.iniciaChat = function(application, req, res){
 
     var erros = req.validationErrors();
 
-    if(erros){
-        res.render('index', {validacao: erros})
+    if (erros) {
+        res.render('index', { validacao: erros })
         return;
     }
 
-    application.get('io').emit(
-        'msgParaCliente',
-        {apelido: dadosForm.apelido, mensagem: 'acabou de entrar no chat'});
+    var socket = application.get('io');
 
-    res.render('chat', {dadosForm: dadosForm});
+    socket.emit(
+        'msgParaCliente',
+        { apelido: dadosForm.apelido, mensagem: 'acabou de entrar no chat' });
+
+    res.render('chat', { dadosForm: dadosForm });
 }
