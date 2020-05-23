@@ -100,22 +100,20 @@
 						</button>
 					</ul>
 				</div>
-				<div class="col-md-11">
+				<div class="col-md-10">
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Mensagem" id="mensagem">
+						<input type="text" class="form-control col-md-1" placeholder="Mensagem" id="mensagem">
 						<input type="hidden" value="<%=dadosForm.apelido%>" id="apelido">
 						<input type="hidden" value="0" id="apelido_atualizado_nos_clientes">
-						<span class="input-group-btn">
-							<button class="btn btn-info text-light" type="button" id="enviarMidia"
-								style="outline: none;">
-								<i class="fas fa-photo-video">
-								</i>
-							</button>
-							<button class="btn btn-info text-light" type="button" id="enviar_mensagem"
-								style="outline: none;">
+						<div class="input-group-btn">
+							<label for="meuArquivo" class="btn btn-info" style="outline: none;">
+								<i class="fas fa-photo-video"></i>
+							</label>
+							<input type="file" id="meuArquivo" />
+							<button class="btn btn-info" type="button" id="enviar_mensagem" style="outline: none;">
 								<i class="fas fa-paper-plane"></i>
 							</button>
-						</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -173,7 +171,7 @@
 			var html = '';
 
 			html += '<div class="dialogo">';
-			html += '<h4>' + data.apelido +' '+ data.mensagem + '</h4>';
+			html += '<h4>' + data.apelido + ' ' + data.mensagem + '</h4>';
 			html += '</div>';
 
 			$('#dialogos').append(html);

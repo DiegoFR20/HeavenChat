@@ -97,3 +97,7 @@ img {
 	font-size:12px;
 	padding-left:15px;
 }
+
+input[type='file']{
+    display: none;
+}
