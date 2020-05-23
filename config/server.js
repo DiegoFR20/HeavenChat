@@ -13,7 +13,6 @@ app.use(expressValidator());
 
 consign()
     .include('app/routes')
-    .then('app/models')
     .then('app/controllers')
     .into(app);
 
